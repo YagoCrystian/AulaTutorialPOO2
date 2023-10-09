@@ -1,3 +1,4 @@
+#Start:
 1. abrir powershell
 2. ls (lista os arquivos e pastas)
 3. cd .\Desktop\ (change directory)
@@ -9,7 +10,7 @@
 9. npm install --save.dev typescript (instala o node)
 
 
-LEGENDA E DICAS
+#LEGENDA E DICAS
 ** rmdir (remove directory)
 ** mkdir (make directory)
 ** .. (abre a pasta anterior)
@@ -19,13 +20,44 @@ LEGENDA E DICAS
 ** npm init --help (mostra os modulos de uso e as opções)
 
 
-DOCUMETAÇÃO
+#DOCUMETAÇÃO
 https://www.prisma.io/docs/getting-started/quickstart
  - QUICKSTART DO PRISMA.IO
 
-prisma:
+#FORMATO DO TSCONFIG.JSON:
+   "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}
+
+#prisma:
  - npm init -y
  - npm install typescript ts-node @types/node --save-dev
  - npx tsc --init
  - npm install prisma --save-dev
  - npx prisma init --datasource-provider sqlite
+
+#The Prisma schema provides an intuitive way to model data. Add the following models to your schema.prisma file:
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  posts Post[]
+}
+
+model Post {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean @default(false)
+  author    User    @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
